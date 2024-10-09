@@ -1,3 +1,5 @@
+import pandas as pd
+
 # Criando coluna extra "TEMA_CONSIDERADO" (tema usado para previsão antes da correção)
 
 # Aqui futuramente trocar por leitura no banco
@@ -34,11 +36,12 @@ while row_index < len(df):
     
     row_index += 1
 
+
 # Display the updated DataFrame
-df[['SEI', 'TEMAS', 'TEMAS_POS_FILA', 'TEMA_CONSIDERADO', 'PREVISAO_PROD']] .to_csv('..\\Resultados\\previsao_fila_admitidos_com_tema_considerado.csv', index=False)
+# df[['SEI', 'TEMAS', 'TEMAS_POS_FILA', 'TEMA_CONSIDERADO', 'PREVISAO_PROD']]
 
 previsao_zerar_backlog = df.groupby('TEMA_CONSIDERADO')[['PREVISAO_PROD_ANTES_CORRECAO','PREVISAO_PROD']].max().reset_index()
 
 # Salva na mesma pasta
-previsao_zerar_backlog.to_csv(
-    '.tempo_previsto_zerar_backlog_novoalgoritmo.csv', index=False)
+previsao_zerar_backlog.to_csv("tempo_previsto_zerar_backlog_novoalgoritmo.csv", index=False)
+
