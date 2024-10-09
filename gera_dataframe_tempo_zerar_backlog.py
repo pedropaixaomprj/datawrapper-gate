@@ -2,9 +2,8 @@ import pandas as pd
 
 # Criando coluna extra "TEMA_CONSIDERADO" (tema usado para previsão antes da correção)
 
-# Aqui futuramente trocar por leitura no banco
-# Solução temporária
 df = pd.read_csv('C:\\Users\\pedro.paixao\\Desktop\\Pedro\\PrevisaoTempoFila\\Transformacao\\Resultados\\previsao_fila_admitidos.csv')
+zerar_backlog_abr2023 = pd.read_csv('tempo_zerar_backlog_abr2023.csv')
 
 # Initialize an empty column for 'TEMA_CONSIDERADO'
 df['TEMA_CONSIDERADO'] = None
@@ -36,12 +35,14 @@ while row_index < len(df):
     
     row_index += 1
 
-
 # Display the updated DataFrame
 # df[['SEI', 'TEMAS', 'TEMAS_POS_FILA', 'TEMA_CONSIDERADO', 'PREVISAO_PROD']]
 
 previsao_zerar_backlog = df.groupby('TEMA_CONSIDERADO')[['PREVISAO_PROD_ANTES_CORRECAO','PREVISAO_PROD']].max().reset_index()
 
-# Salva na mesma pasta
-previsao_zerar_backlog.to_csv("tempo_previsto_zerar_backlog_novoalgoritmo.csv", index=False)
+previsao_zerar_backlog.columns = ['TEMA', 'TEMPO_PREVISTO_ANTES_MULTITEMAS', 'TEMPO_PREVISTO_REAL']
 
+previsao_zerar_backlog.merge(zerar_backlog_abr2023, on='TEMA')
+
+previsao_zerar_backlog.to_csv(
+    'tempo_previsto_zerar_backlog_novoalgoritmo.csv', index=False)
