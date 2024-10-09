@@ -42,7 +42,7 @@ previsao_zerar_backlog = df.groupby('TEMA_CONSIDERADO')[['PREVISAO_PROD_ANTES_CO
 
 previsao_zerar_backlog.columns = ['TEMA', 'TEMPO_PREVISTO_ANTES_MULTITEMAS', 'TEMPO_PREVISTO_REAL']
 
-previsao_zerar_backlog.merge(zerar_backlog_abr2023, on='TEMA')
+previsao_zerar_backlog = previsao_zerar_backlog.merge(zerar_backlog_abr2023, on='TEMA')
 
 previsao_zerar_backlog.to_csv(
     'tempo_previsto_zerar_backlog_novoalgoritmo.csv', index=False)
