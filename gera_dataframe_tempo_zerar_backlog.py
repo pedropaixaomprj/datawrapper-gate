@@ -44,5 +44,7 @@ previsao_zerar_backlog.columns = ['TEMA', 'TEMPO_PREVISTO_ANTES_MULTITEMAS', 'TE
 
 previsao_zerar_backlog = previsao_zerar_backlog.merge(zerar_backlog_abr2023, on='TEMA')
 
+previsao_zerar_backlog.columns = ['Tema', 'Atual', 'Atual com Multitemas', 'Abr/2023']
+
 previsao_zerar_backlog.to_csv(
     'tempo_previsto_zerar_backlog_novoalgoritmo.csv', index=False)
